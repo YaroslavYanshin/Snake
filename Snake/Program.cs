@@ -2,19 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Snake
 {
     class Program
     {
+        static int mseconds = 1;
         static void Main(string[] args)
         {
             int a = 0;
             Console.SetWindowSize(80, 25);
             Console.SetBufferSize(80, 25);
+            Console.CursorVisible = false;
+
+            ConsoleKeyInfo key = default(ConsoleKeyInfo);
+            bool pressed = false;
+
             // Console.ForegroundColor = ConsoleColor.Green; // Для цвета 
+            Timer timer = new Timer();
+            timer.Elapsed += new ElapsedEventHandler(timerFunc);
+            timer.Interval = 1;
+            timer.Enabled = true;
 
             Walls walls = new Walls(80, 24);
             walls.Draw();
@@ -23,44 +33,64 @@ namespace Snake
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Draw();
 
-            FoodCreator foodCreator = new FoodCreator(80, 25, '$');
+
+            FoodCreator foodCreator = new FoodCreator(80, 25, '*');
             Point food = foodCreator.CreateFood();
             food.Draw();
 
             while (true)
             {
-                if(walls.IsHit(snake) || snake.IsHitTail())
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("Sec:{0:F2}", mseconds/60.0);
+                Console.SetCursorPosition(15, 0);
+                Console.WriteLine("Count:{0}", a);
+
+                if (Console.KeyAvailable)
                 {
-                    Console.SetCursorPosition(35, 11);
-                    Console.WriteLine("Game over:{0}",a);
-                  
-                    break;
-                }
-                if (snake.Eat(food))
-                {
-                    food = foodCreator.CreateFood();
-                    food.Draw();
-                    a++;
-                    Console.SetCursorPosition(0, 0);
-                    Console.WriteLine("Count:{0}", a);
-                }
-                else
-                {
-                    snake.Move();
+                    key = Console.ReadKey();
+                    pressed = true;
                 }
 
-                Thread.Sleep(100);
-
-                if(Console.KeyAvailable)
+                if (mseconds%30 == 0)
                 {
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    snake.HandleKey(key.Key);  
+                    mseconds++;
+
+                    if (pressed)
+                    {
+                        snake.HandleKey(key.Key);
+                        pressed = false;
+                    }                       
+                    
+
+                    if (walls.IsHit(snake) || snake.IsHitTail())
+                    {
+                        Console.SetCursorPosition(35, 11);
+                        Console.WriteLine("Game over:{0}", a);
+
+                        break;
+                    }
+                    if (snake.Eat(food))
+                    {
+                        food = foodCreator.CreateFood();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        food.Draw();
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        a++;
+                        
+                    }
+                    else
+                    {
+                        snake.Move();
+                    }
                 }
-                Thread.Sleep(200);
-                //snake.Move();
             }
             Console.ReadKey();
-           
+
+        }
+
+        static private void timerFunc(object source, ElapsedEventArgs e)
+        {
+            mseconds++;
         }
 
     }

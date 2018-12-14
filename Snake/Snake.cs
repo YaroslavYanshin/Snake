@@ -44,15 +44,27 @@ namespace Snake
 
         public void HandleKey(ConsoleKey key)
         {
-                if (key == ConsoleKey.LeftArrow)
-                    direction = Direction.LEFT;
-                else if (key == ConsoleKey.RightArrow)
-                    direction = Direction.RIGHT;
-                if (key == ConsoleKey.DownArrow)
-                   direction = Direction.DOWN;
-                if (key == ConsoleKey.UpArrow)
-                    direction = Direction.UP;
-            
+
+            switch (key)
+            {
+                case ConsoleKey.DownArrow:
+                    if (direction != Direction.UP)
+                        direction = Direction.DOWN;
+                    break;
+                case ConsoleKey.UpArrow:
+                    if (direction != Direction.DOWN)
+                        direction = Direction.UP;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if (direction != Direction.RIGHT)
+                        direction = Direction.LEFT;
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (direction != Direction.LEFT)
+                        direction = Direction.RIGHT;
+                    break;
+            }
+
         }
 
         internal bool Eat(Point food)
@@ -74,7 +86,7 @@ namespace Snake
         internal bool IsHitTail()
         {
             var head = pList.Last();
-            for (int i = 0; i < pList.Count-2; i++)
+            for (int i = 0; i < pList.Count - 2; i++)
             {
                 if (head.IsHit(pList[i]))
                     return true;
