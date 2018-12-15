@@ -20,7 +20,7 @@ namespace Snake
             bool pressed = false;
 
             const int maxSpeed = 40;
-            int speed = 20;
+            int speed = 30;
             Timer timer = new Timer();
             // Console.ForegroundColor = ConsoleColor.Green; // Для цвета 
             
@@ -33,7 +33,7 @@ namespace Snake
             snake.Draw();
 
 
-            FoodCreator foodCreator = new FoodCreator(80, 25, '*');
+            FoodCreator foodCreator = new FoodCreator(80, 23, '*');
             Point food = foodCreator.CreateFood();
             food.Draw();
 
