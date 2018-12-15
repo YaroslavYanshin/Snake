@@ -20,6 +20,9 @@ namespace Snake
             ConsoleKeyInfo key = default(ConsoleKeyInfo);
             bool pressed = false;
 
+            const int maxSpeed = 40;
+            int speed = 20;
+
             // Console.ForegroundColor = ConsoleColor.Green; // Для цвета 
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(timerFunc);
@@ -51,7 +54,7 @@ namespace Snake
                     pressed = true;
                 }
 
-                if (mseconds%30 == 0)
+                if (mseconds%(maxSpeed - speed) == 0)
                 {
                     mseconds++;
 
