@@ -8,8 +8,7 @@ namespace Snake
 {
     class Snake : Figure
     {
-        public Direction direction;
-        public int a = 0;
+        Direction direction;
         public Snake(Point tall, int length, Direction _direction)
         {
             direction = _direction;
@@ -24,6 +23,17 @@ namespace Snake
 
         internal void Move()
         {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                HandleKey(key.Key);
+            }
+
+            MoveStraight();
+        }
+
+        void MoveStraight()
+        {
             Point tail = pList.First();
             pList.Remove(tail);
             Point head = GetNextPoint();
@@ -31,7 +41,6 @@ namespace Snake
 
             tail.Clear();
             head.Draw();
-
         }
 
         public Point GetNextPoint()
@@ -92,6 +101,11 @@ namespace Snake
                     return true;
             }
             return false;
+        }
+
+        public void SetDirection(Direction direction)
+        {
+            this.direction = direction;
         }
     }
 }
