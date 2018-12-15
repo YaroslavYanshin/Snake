@@ -11,7 +11,7 @@ namespace Snake
         private int points = 0;
         private int widthGameBoard;
         private int heighGameBoard;
-        private ValueTuple<int,int> startSnakePosition = (x: 0, y: 0);
+        private ValueTuple<int, int> startSnakePosition = (x: 0, y: 0);
         private Option option;
         private Menu menu;
         private Timer timer;
@@ -22,6 +22,7 @@ namespace Snake
             this.heighGameBoard = heighGameBoard;
             menu = new Menu(widthGameBoard, heighGameBoard, offset);
             timer = new Timer();
+            timer.Start();
             configureConsole();
         }
 
@@ -37,7 +38,7 @@ namespace Snake
             option = menu.Show();
             while (option == Option.StartGame)
             {
-
+                timer.Show(0, 0);
             }
         }
 
