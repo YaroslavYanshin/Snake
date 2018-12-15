@@ -11,8 +11,8 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-
-
+            Game game = new Game(70, 20, 1);
+            game.gameProcess();
         }
     }
 }

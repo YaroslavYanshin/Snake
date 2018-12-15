@@ -8,24 +8,38 @@ namespace Snake
 {
     class Game
     {
-        private int points;
+        private int points = 0;
         private int widthGameBoard;
         private int heighGameBoard;
-        
+        private ValueTuple<int,int> startSnakePosition = (x: 0, y: 0);
+        private Option option;
+        private Menu menu;
+        private Timer timer;
 
-        public Game(int widthGameBoard, int heighGameBoard)
+        public Game(int widthGameBoard, int heighGameBoard, int offset = 0)
         {
             this.widthGameBoard = widthGameBoard;
             this.heighGameBoard = heighGameBoard;
-            points = 0;
-            var startSnakePosition = (x: 0, y: 0);
+            menu = new Menu(widthGameBoard, heighGameBoard, offset);
+            timer = new Timer();
+            configureConsole();
         }
 
         void configureConsole()
         {
-            Console.SetWindowSize(widthGameBoard, heighGameBoard);
-            Console.SetBufferSize(widthGameBoard, heighGameBoard);
+            Console.SetWindowSize(80, 25);
+            Console.SetBufferSize(80, 25);
             Console.CursorVisible = false;
         }
+
+        public void gameProcess()
+        {
+            option = menu.Show();
+            while (option == Option.StartGame)
+            {
+
+            }
+        }
+
     }
 }
