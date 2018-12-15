@@ -9,13 +9,18 @@ namespace Snake
     class Snake : Figure
     {
         Direction direction;
-        public Snake(Point tall, int length, Direction _direction)
+        int speed;
+        int maxSpeed = 40;
+        ConsoleColor color;
+        public Snake(Point tall, int length, Direction _direction, ConsoleColor color = ConsoleColor.Gray)
         {
             direction = _direction;
             pList = new List<Point>();
+            speed = 0;
+            this.color = color;
             for (int i = 0; i < length; i++)
             {
-                Point p = new Point(tall);
+                Point p = new Point(tall, color);
                 p.Move(i, direction);
                 pList.Add(p);
             }
@@ -46,9 +51,19 @@ namespace Snake
         public Point GetNextPoint()
         {
             Point head = pList.Last();
-            Point nextPoint = new Point(head);
+            Point nextPoint = new Point(head, color);
             nextPoint.Move(1, direction);
             return nextPoint;
+        }
+
+        public void SetSpeed(int speed)
+        {
+            this.speed = speed;
+        }
+
+        public int GetSpeed()
+        {
+            return maxSpeed - speed;
         }
 
         public void HandleKey(ConsoleKey key)
