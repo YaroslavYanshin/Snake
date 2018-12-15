@@ -9,10 +9,22 @@ namespace Snake
     class Game
     {
         private int points;
-        public Game()
+        private int widthGameBoard;
+        private int heighGameBoard;
+        
+
+        public Game(int widthGameBoard, int heighGameBoard)
         {
-            Console.SetWindowSize(80, 25);
-            Console.SetBufferSize(80, 25);
+            this.widthGameBoard = widthGameBoard;
+            this.heighGameBoard = heighGameBoard;
+            points = 0;
+            var startSnakePosition = (x: 0, y: 0);
+        }
+
+        void configureConsole()
+        {
+            Console.SetWindowSize(widthGameBoard, heighGameBoard);
+            Console.SetBufferSize(widthGameBoard, heighGameBoard);
             Console.CursorVisible = false;
         }
     }
