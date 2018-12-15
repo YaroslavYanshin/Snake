@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
+
 
 namespace Snake
 {
     class Program
     {
-        static int mseconds = 1;
         static void Main(string[] args)
         {
             int a = 0;
@@ -22,12 +21,9 @@ namespace Snake
 
             const int maxSpeed = 40;
             int speed = 20;
-
-            // Console.ForegroundColor = ConsoleColor.Green; // Для цвета 
             Timer timer = new Timer();
-            timer.Elapsed += new ElapsedEventHandler(timerFunc);
-            timer.Interval = 1;
-            timer.Enabled = true;
+            // Console.ForegroundColor = ConsoleColor.Green; // Для цвета 
+            
 
             Walls walls = new Walls(80, 24);
             walls.Draw();
@@ -41,10 +37,12 @@ namespace Snake
             Point food = foodCreator.CreateFood();
             food.Draw();
 
+            timer.Start();
+
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("Sec:{0:F2}", mseconds/60.0);
+                Console.WriteLine("Sec:{0:F2}", timer.GetSec()/60.0);
                 Console.SetCursorPosition(15, 0);
                 Console.WriteLine("Count:{0}", a);
 
@@ -54,9 +52,9 @@ namespace Snake
                     pressed = true;
                 }
 
-                if (mseconds%(maxSpeed - speed) == 0)
+                if (timer.GetSec()%(maxSpeed - speed) == 0)
                 {
-                    mseconds++;
+                    timer.SyncTimer();
 
                     if (pressed)
                     {
@@ -91,10 +89,7 @@ namespace Snake
 
         }
 
-        static private void timerFunc(object source, ElapsedEventArgs e)
-        {
-            mseconds++;
-        }
+        
 
     }
 }
