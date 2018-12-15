@@ -31,17 +31,19 @@ namespace Snake
             heightStartToPrint = offset + 2;
             listText = new List<string>();
             listText.Add("Start game.");
-            listText.Add("Show list players");
+            listText.Add("Continue.");
+            listText.Add("Show leaders.");
             listText.Add("Quit.");
-
-            drawBoundaries();
-            prtintMenuOptions();
         }
 
-        public void Show()
+
+
+        public Option Show()
         {
             show = true;
 
+            drawBoundaries();
+            prtintMenuOptions();
             while (show)
             {
                 chooseOption();
@@ -53,6 +55,9 @@ namespace Snake
                 }
             }
             Console.Clear();
+            Option option = (Option)currentOption;
+            return option;
+
         }
 
         public void Hide()
@@ -103,11 +108,11 @@ namespace Snake
                         currentOption = listText.Count - 1;
                     break;
                 case ConsoleKey.Enter:
-                    Console.Clear();
+                    show = false;
                     break;
                 case ConsoleKey.Escape:
                     show = false;
-
+                    currentOption = (int)Option.Quit;
                     break;
 
                 default:
@@ -123,7 +128,7 @@ namespace Snake
                 Console.SetCursorPosition(startX - offsetFromText, heightStartToPrint + lastOption + 1);
                 Console.Write(" ");
             }
-                        
+
             Console.SetCursorPosition(startX - offsetFromText, heightStartToPrint + currentOption + 1);
             Console.Write("*");
 
