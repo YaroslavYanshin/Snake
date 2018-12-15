@@ -15,12 +15,14 @@ namespace Snake
         private Option option;
         private Menu menu;
         private Timer timer;
+        private Walls walls;
 
         public Game(int widthGameBoard, int heighGameBoard, int offset = 0)
         {
             this.widthGameBoard = widthGameBoard;
             this.heighGameBoard = heighGameBoard;
             menu = new Menu(widthGameBoard, heighGameBoard, offset);
+            walls = new Walls(widthGameBoard, heighGameBoard, 2);
             timer = new Timer();
             timer.Start();
             configureConsole();
@@ -36,11 +38,13 @@ namespace Snake
         public void gameProcess()
         {
             option = menu.Show();
+            walls.Draw();
             while (option == Option.StartGame)
             {
                 timer.Show(0, 0);
             }
         }
+
 
     }
 }
