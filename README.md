@@ -1,3 +1,3 @@
 # Snake
 
-Just console game, made in c# programming language.
+Just a console game made in the C # programming language.
