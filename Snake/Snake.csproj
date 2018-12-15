@@ -44,6 +44,7 @@
     <Compile Include="Direction.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="FoodCreator.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="HorizontalLine.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Option.cs" />
