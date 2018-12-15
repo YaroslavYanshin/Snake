@@ -44,5 +44,11 @@ namespace Snake
             mseconds++;
         }
 
+        public void Show(int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write("Timer: {0:F2}", mseconds/60.0);
+        }
+
     }
 }
