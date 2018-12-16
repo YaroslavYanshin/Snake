@@ -26,18 +26,16 @@ namespace Snake
             }
         }
 
-        internal void Move()
+        internal void ChangeDirection()
         {
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo key = Console.ReadKey();
                 HandleKey(key.Key);
-            }
-
-            MoveStraight();
+            }            
         }
 
-        void MoveStraight()
+        public void Move()
         {
             Point tail = pList.First();
             pList.Remove(tail);

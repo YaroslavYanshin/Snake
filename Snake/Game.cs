@@ -57,6 +57,7 @@ namespace Snake
             while (option == Option.StartGame)
             {
                 timer.Show(0, 0);
+                snake.ChangeDirection();
 
                 if (timer.GetSec() % snake.GetSpeed() == 0)
                 {
